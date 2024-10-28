@@ -1,3 +1,5 @@
+import json
+
 class Pokemon:
     def __init__(self, name, level, health):
         self.name = name
@@ -22,6 +24,19 @@ def load_pokemon_from_file(filename):
         name, level, health = line.split(',')
         return Pokemon(name, int(level), float(health))
 
+def save_pokemon_to_json(pokemon, filename):
+    data = {
+        "name": pokemon.name,
+        "level": pokemon.level,
+        "health": pokemon.health
+    }
+    with open(filename, 'w') as file:
+        json.dump(data, file)
+
+def load_pokemon_from_json(filename):
+    with open(filename, 'r') as file:
+        data = json.load(file)
+        return Pokemon(data["name"], data["level"], data["health"])
 
 class ElectricPokemon(Pokemon):
     def attack(self):
@@ -59,4 +74,8 @@ if __name__ == "__main__":
 
     save_pokemon_to_file(pikachu, "pokemon_data.txt")
     loaded_pokemon = load_pokemon_from_file("pokemon_data.txt")
+    loaded_pokemon.display_info()
+
+    save_pokemon_to_json(squirtle, "pokemon_data.json")
+    loaded_pokemon = load_pokemon_from_json("pokemon_data.json")
     loaded_pokemon.display_info()
