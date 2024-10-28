@@ -24,11 +24,23 @@ class WaterPokemon(Pokemon):
 if __name__ == "__main__":
     pikachu = ElectricPokemon("pikachu", 3, 72.5)
     squirtle = WaterPokemon("squirtle", 3, 80.0)
+    bulbasaur = Pokemon("bulbasaur", 3, 78.0)
 
-    pikachu.display_info()
-    squirtle.display_info()
+    pokemon_list = [pikachu, squirtle, bulbasaur]
 
-    pikachu.attack()
-    squirtle.attack()
+    for pokemon in pokemon_list:
+        pokemon.display_info()
+        pokemon.attack()
+        print("-" * 20)
 
+    pokemon_dict = {
+        "pikachu": pikachu,
+        "squirtle": squirtle,
+        "bulbasaur": bulbasaur
+    }
 
+    name = "pikachu"
+    if name in pokemon_dict:
+        selected_pokemon = pokemon_dict[name]
+        selected_pokemon.display_info()
+        selected_pokemon.attack()
